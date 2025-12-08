@@ -1,6 +1,6 @@
-// src/pages/Collection.jsx - Updated with theme colors and improved spacing
+// src/pages/Collection.jsx - Fixed issues
 import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import ProductGrid from '../components/products/ProductGrid'
 import { getCollectionByHandle } from '../data/collections'
@@ -9,6 +9,7 @@ import { FiFilter, FiX, FiChevronDown } from 'react-icons/fi'
 
 const Collection = () => {
   const { handle } = useParams()
+  const location = useLocation()
   const [collection, setCollection] = useState(null)
   const [products, setProducts] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([])
@@ -17,6 +18,11 @@ const Collection = () => {
   const [maxPrice, setMaxPrice] = useState('')
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
+  const isAllProductsPage = handle === 'all'
+  
+  // Check if we should show back link
+  const showBackLink = !isAllProductsPage && location.pathname !== '/collections'
+
   useEffect(() => {
     const foundCollection = getCollectionByHandle(handle)
     setCollection(foundCollection)
@@ -24,7 +30,7 @@ const Collection = () => {
     let collectionProducts = []
     
     if (foundCollection) {
-      if (handle === 'all') {
+      if (isAllProductsPage) {
         collectionProducts = getAllProducts()
       } else {
         collectionProducts = getProductsByCollection(handle)
@@ -32,7 +38,7 @@ const Collection = () => {
       setProducts(collectionProducts)
       setFilteredProducts(collectionProducts)
     }
-  }, [handle])
+  }, [handle, isAllProductsPage])
 
   useEffect(() => {
     if (products.length === 0) return
@@ -105,21 +111,26 @@ const Collection = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8 md:mb-12 text-center md:text-left"
         >
-          <div className="mb-4">
-            <Link 
-              to="/collections/all"
-              className="inline-flex items-center gap-1 text-sm text-amber-600 hover:text-amber-700 font-medium mb-3"
-            >
-              ← Back to Collections
-            </Link>
-          </div>
+          {/* Show back link only when needed */}
+          {showBackLink && (
+            <div className="mb-4">
+              <Link 
+                to="/collections/all"
+                className="inline-flex items-center gap-1 text-sm text-amber-600 hover:text-amber-700 font-medium mb-3"
+              >
+                ← Back to All Collections
+              </Link>
+            </div>
+          )}
           
+          {/* Fixed: Show either collection title OR "All Products", not both */}
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-3 md:mb-4">
-            {collection.title}
-            {handle === 'all' && (
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-orange-600 to-rose-600">
+            {isAllProductsPage ? (
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-orange-600 to-rose-600">
                 All Products
               </span>
+            ) : (
+              collection.title
             )}
           </h1>
           
@@ -141,7 +152,7 @@ const Collection = () => {
               </div>
               <div className="text-sm text-gray-600">Starting From</div>
             </div>
-            {collection.discount && (
+            {!isAllProductsPage && collection.discount && (
               <div className="text-center p-3 md:p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl md:rounded-2xl border border-green-200">
                 <div className="text-xl md:text-2xl font-black text-green-700">{collection.discount}% OFF</div>
                 <div className="text-sm text-gray-600">Special Discount</div>
@@ -359,8 +370,8 @@ const Collection = () => {
               />
             </motion.div>
             
-            {/* Collection Footer */}
-            {filteredProducts.length > 0 && (
+            {/* Collection Footer - Only show on collection pages, not on "All Products" */}
+            {!isAllProductsPage && filteredProducts.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
