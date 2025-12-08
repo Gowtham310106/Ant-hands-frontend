@@ -9,12 +9,12 @@ const CollectionsGrid = () => {
 
   // Sample images - replace with your actual collection images
   const collectionImages = [
-    'https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=500&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?q=80&w=500&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?q=80&w=500&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=500&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=500&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1464347601390-25e2842a37e7?q=80&w=500&auto=format&fit=crop'
+    '/fridge-magnet.jpeg',
+    '/wallet-cards.webp',
+    '/photo-keychains.jpg',
+    '/PolaroidPhotoPrints.webp',
+    '/gift-boxes.webp',
+    '/calender.webp'
   ]
 
   // Fallback gradients for when images fail to load

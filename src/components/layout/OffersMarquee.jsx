@@ -1,4 +1,4 @@
-// src/components/layout/CompactOffersMarquee.jsx - Updated with better navigation
+// src/components/layout/CompactOffersMarquee.jsx - More compact without dots
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -84,10 +84,6 @@ const CompactOffersMarquee = () => {
     }
   }
 
-  const handleDotClick = (index) => {
-    setCurrentIndex(index)
-  }
-
   const handleBackNavigation = () => {
     navigate(-1) // Go back to previous page
   }
@@ -96,55 +92,55 @@ const CompactOffersMarquee = () => {
   const canGoBack = location.key !== 'default'
 
   return (
-    <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-rose-50 border-b border-amber-200">
-      <div className="relative">
-        <div className="flex items-center justify-center px-4 py-3">
+    <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-rose-50 border-b border-amber-200/50 py-2.5">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4">
+        <div className="flex items-center justify-between">
           {/* Back Button - Only show if we can go back */}
           {canGoBack && (
             <button
               onClick={handleBackNavigation}
-              className="p-2 rounded-lg text-amber-600 hover:text-amber-700 hover:bg-white transition-colors duration-200 mr-4 flex-shrink-0"
+              className="p-1.5 sm:p-2 rounded-lg text-amber-600 hover:text-amber-700 hover:bg-white transition-colors duration-200 flex-shrink-0 mr-2"
               aria-label="Go back"
             >
-              <FiArrowLeft className="text-lg" />
+              <FiArrowLeft className="text-base sm:text-lg" />
             </button>
           )}
 
-          {/* Current Offer */}
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3 }}
-            className="flex-1"
-          >
-            <div className="flex items-center justify-center gap-4">
+          {/* Current Offer - Centered */}
+          <div className="flex-1 flex items-center justify-center px-1 sm:px-2">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
+              className="flex items-center gap-2 sm:gap-3"
+            >
               {/* Previous Offer Button */}
               <button
                 onClick={prevOffer}
-                className="p-1.5 rounded-lg text-amber-600 hover:text-amber-700 hover:bg-white transition-colors duration-200 flex-shrink-0"
+                className="p-1 rounded-lg text-amber-600 hover:text-amber-700 hover:bg-white transition-colors duration-200 flex-shrink-0"
                 aria-label="Previous offer"
               >
-                <FiChevronLeft className="text-lg" />
+                <FiChevronLeft className="text-base" />
               </button>
 
               {/* Offer Content */}
               <button
                 onClick={() => handleOfferClick(offers[currentIndex])}
-                className="group flex items-center gap-3"
+                className="group flex items-center gap-2 sm:gap-3 min-w-0"
               >
                 {/* Offer Icon */}
-                <div className={`p-2 rounded-lg ${offers[currentIndex].color} text-white shadow-sm`}>
+                <div className={`p-1.5 sm:p-2 rounded-lg ${offers[currentIndex].color} text-white shadow-sm flex-shrink-0`}>
                   {offers[currentIndex].icon}
                 </div>
                 
                 {/* Offer Text */}
-                <div className="text-left">
-                  <span className="text-sm font-semibold text-slate-800 group-hover:text-amber-700 transition-colors block">
+                <div className="text-left min-w-0">
+                  <span className="text-xs sm:text-sm font-semibold text-slate-800 group-hover:text-amber-700 transition-colors block truncate">
                     {offers[currentIndex].text}
                   </span>
-                  {/* Small indicator that it's clickable */}
-                  <span className="text-xs text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                  {/* Small indicator that it's clickable - only show on hover */}
+                  <span className="text-xs text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block">
                     Click to explore →
                   </span>
                 </div>
@@ -153,36 +149,20 @@ const CompactOffersMarquee = () => {
               {/* Next Offer Button */}
               <button
                 onClick={nextOffer}
-                className="p-1.5 rounded-lg text-amber-600 hover:text-amber-700 hover:bg-white transition-colors duration-200 flex-shrink-0"
+                className="p-1 rounded-lg text-amber-600 hover:text-amber-700 hover:bg-white transition-colors duration-200 flex-shrink-0"
                 aria-label="Next offer"
               >
-                <FiChevronRight className="text-lg" />
+                <FiChevronRight className="text-base" />
               </button>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
-          {/* Offer Counter */}
-          <div className="ml-4 flex-shrink-0">
-            <div className="text-xs font-medium px-2 py-1 rounded-full bg-white border border-amber-200 text-amber-700">
+          {/* Offer Counter - Smaller and more compact */}
+          <div className="flex-shrink-0 ml-2">
+            <div className="text-xs font-medium px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full bg-white border border-amber-200 text-amber-700">
               {currentIndex + 1}/{offers.length}
             </div>
           </div>
-        </div>
-
-        {/* Progress Dots */}
-        <div className="flex justify-center space-x-1.5 pb-3">
-          {offers.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handleDotClick(index)}
-              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                index === currentIndex 
-                  ? 'bg-amber-600 scale-125' 
-                  : 'bg-amber-300 hover:bg-amber-400'
-              }`}
-              aria-label={`Go to offer ${index + 1}`}
-            />
-          ))}
         </div>
       </div>
     </div>

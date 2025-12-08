@@ -385,7 +385,7 @@ export const products = [
     title: 'Photo Fridge Magnet',
     price: 129,
     images: [
-      'https://images.unsplash.com/photo-1578328819058-b69f3a1b0f6c?w=400&h=500&fit=crop'
+      '/photo-magnet.jpg'
     ],
     collectionHandle: 'fridge-magnet',
     shortDescription: 'Custom photo fridge magnet',
@@ -415,7 +415,7 @@ export const products = [
     compareAtPrice: 149,
     isOnSale: true,
     images: [
-      'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=400&h=500&fit=crop'
+      '/quote.jpg'
     ],
     collectionHandle: 'fridge-magnet',
     shortDescription: 'Magnet with inspirational quote',
