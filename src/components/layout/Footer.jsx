@@ -27,21 +27,34 @@ const Footer = () => {
           {/* Brand Info - Enhanced */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-lg font-black text-white">AH</span>
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-rose-500 rounded-full border-2 border-white flex items-center justify-center">
-                    <FiHeart className="w-2 h-2 text-white" />
-                  </div>
-                </div>
-              </div>
-              <div className="text-left">
-                <span className="font-display text-2xl font-black bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400 bg-clip-text text-transparent">
-                  AntHands
-                </span>
-                <p className="text-sm text-slate-300 -mt-1">Work like an ant, deliver like a king</p>
-              </div>
-            </div>
+  <div className="relative">
+    <div className="relative w-10 h-10 rounded-2xl overflow-hidden bg-white border-2 border-amber-300 shadow-lg">
+      <img 
+        src="/logo.jpg" 
+        alt="AntHands Logo"
+        className="w-full h-full object-cover"
+        onError={(e) => {
+          // Fallback if logo doesn't load
+          e.target.style.display = 'none';
+          e.target.nextElementSibling.style.display = 'flex';
+        }}
+      />
+      {/* Fallback logo */}
+      <div className="w-full h-full bg-gradient-to-br from-amber-500 to-orange-500 hidden items-center justify-center">
+        <span className="text-lg font-black text-white">AH</span>
+      </div>
+      <div className="absolute -top-1 -right-1 w-4 h-4 bg-rose-500 rounded-full border-2 border-white flex items-center justify-center">
+        <FiHeart className="w-2 h-2 text-white" />
+      </div>
+    </div>
+  </div>
+  <div className="text-left">
+    <span className="font-display text-2xl font-black bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400 bg-clip-text text-transparent">
+      AntHands
+    </span>
+    <p className="text-sm text-slate-300 -mt-1">Work like an ant, deliver like a king</p>
+  </div>
+</div>
             <p className="text-slate-300 text-sm mb-6 max-w-md">
               Transforming precious moments into custom gifts that create lasting memories. 
               From photo frames to personalized accessories, we bring your emotions to life.

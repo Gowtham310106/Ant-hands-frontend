@@ -1,5 +1,11 @@
 // src/data/collections.js
 export const collections = [
+    {
+    handle: 'fridge-magnet',
+    title: 'Fridge Magnets',
+    description: 'Custom magnets with photos or text to decorate your refrigerator.',
+    productHandles: ['photo-fridge-magnet', 'quote-fridge-magnet', 'custom-shape-magnet', 'mini-photo-magnets-set']
+  },
   {
     handle: 'wallet-cards',
     title: 'Wallet Cards',
@@ -48,12 +54,7 @@ export const collections = [
     description: 'Tiny flip albums you can attach to your keys or bag.',
     productHandles: ['mini-flip-album-keychain']
   },
-  {
-    handle: 'fridge-magnet',
-    title: 'Fridge Magnets',
-    description: 'Custom magnets with photos or text to decorate your refrigerator.',
-    productHandles: ['photo-fridge-magnet', 'quote-fridge-magnet', 'custom-shape-magnet', 'mini-photo-magnets-set']
-  },
+
   {
     handle: 'anime-wallet-cards',
     title: 'Anime Wallet Cards',

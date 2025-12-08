@@ -15,6 +15,7 @@ const Header = () => {
 
   const navItems = [
     { name: 'Home', path: '/', icon: '🏠' },
+     { name: 'Fridge Magnets', path: '/collections/fridge-magnet', icon: '🧲' },
     { name: '2026 Calendar', path: '/collections/2026-calendar', icon: '📅' },
     { name: 'Wallet Cards', path: '/collections/wallet-cards', icon: '💳' },
     { name: 'Love Letters', path: '/collections/love-letters', icon: '💌' },
@@ -23,7 +24,7 @@ const Header = () => {
     { name: 'Photo Keychains', path: '/collections/photo-keychains', icon: '📸' },
     { name: 'Polaroids', path: '/collections/polaroids', icon: '🖼️' },
     { name: 'Photo Frames', path: '/collections/photo-frames', icon: '🖼️' },
-    { name: 'Fridge Magnets', path: '/collections/fridge-magnet', icon: '🧲' },
+   
     { name: 'About Us', path: '/about', icon: '👥' },
     { name: 'Contact', path: '/contact', icon: '📞' },
   ]
