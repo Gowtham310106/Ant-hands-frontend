@@ -1,0 +1,75 @@
+/* src/styles/animations.css */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-15px) rotate(5deg); 
+  }
+}
+
+@keyframes gradient {
+  0% { 
+    background-position: 0% 50%; 
+  }
+  50% { 
+    background-position: 100% 50%; 
+  }
+  100% { 
+    background-position: 0% 50%; 
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    opacity: 0.2; 
+  }
+  50% { 
+    opacity: 0.4; 
+  }
+}
+
+@keyframes photo-float {
+  0%, 100% { 
+    transform: translateY(0) rotate(0); 
+  }
+  33% { 
+    transform: translateY(-5px) rotate(1deg); 
+  }
+  66% { 
+    transform: translateY(5px) rotate(-1deg); 
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 4s ease infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-photo-float {
+  animation: photo-float 8s ease-in-out infinite;
+}
+
+/* Photo grid hover effects */
+.photo-grid-item {
+  transition: all 0.3s ease;
+}
+
+.photo-grid-item:hover {
+  transform: scale(1.05) translateY(-5px);
+  z-index: 10;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Add this to your globals.css */
+.rounded-4xl {
+  border-radius: 2.5rem;
+}
