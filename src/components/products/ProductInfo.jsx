@@ -1,10 +1,9 @@
-// src/components/products/ProductInfo.jsx
+// src/components/products/ProductInfo.jsx - Updated with dark theme
 import { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { CartContext } from '../../context/CartContext'
-import Button from '../common/Button'
-import { FiCheck, FiInfo } from 'react-icons/fi'
+import { FiCheck, FiInfo, FiUpload, FiPackage, FiTruck, FiShield, FiTag } from 'react-icons/fi'
 
 const ProductInfo = ({ product }) => {
   const [quantity, setQuantity] = useState(1)
@@ -56,64 +55,106 @@ const ProductInfo = ({ product }) => {
     navigate('/checkout')
   }
 
+  // Calculate discount
+  const discountPercentage = product.compareAtPrice 
+    ? Math.round((1 - product.price / product.compareAtPrice) * 100)
+    : 0
+
   return (
     <div className="space-y-8">
-      {/* Breadcrumbs */}
-      <div className="flex items-center text-sm text-slate-600">
-        <Link to="/" className="hover:text-anthands-rose transition-colors">
+      {/* Breadcrumbs - Updated */}
+      <div className="flex items-center text-sm text-gray-400">
+        <Link to="/" className="hover:text-yellow-400 transition-colors">
           Home
         </Link>
-        <span className="mx-2">/</span>
+        <span className="mx-2 text-gray-600">/</span>
         <Link 
           to={`/collections/${product.collectionHandle}`} 
-          className="hover:text-anthands-rose transition-colors capitalize"
+          className="hover:text-yellow-400 transition-colors capitalize"
         >
-          {product.collectionHandle.replace('-', ' ')}
+          {product.collectionHandle?.replace(/-/g, ' ') || 'Collections'}
         </Link>
-        <span className="mx-2">/</span>
-        <span className="text-slate-900 font-medium">{product.title}</span>
+        <span className="mx-2 text-gray-600">/</span>
+        <span className="text-yellow-400 font-medium">{product.title}</span>
       </div>
 
-      {/* Title */}
-      <h1 className="font-display text-3xl md:text-4xl font-bold text-slate-900">
+      {/* Title - Updated */}
+      <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white">
         {product.title}
       </h1>
 
-      {/* Price */}
-      <div className="flex items-center space-x-4">
-        <span className="text-3xl font-bold text-slate-900">
-          ₹{product.price}
-        </span>
-        {product.compareAtPrice && (
-          <>
-            <span className="text-xl text-slate-500 line-through">
-              ₹{product.compareAtPrice}
-            </span>
-            <span className="bg-anthands-rose text-white text-sm font-bold px-2 py-1 rounded-full">
-              Save ₹{product.compareAtPrice - product.price}
-            </span>
-          </>
-        )}
+      {/* Price Section - Updated */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-4">
+          <span className="text-3xl md:text-4xl font-bold text-yellow-400">
+            ₹{product.price}
+          </span>
+          {product.compareAtPrice && (
+            <>
+              <span className="text-xl text-gray-500 line-through">
+                ₹{product.compareAtPrice}
+              </span>
+              {discountPercentage > 0 && (
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-black text-sm font-bold px-3 py-1.5 rounded-full shadow-lg"
+                >
+                  Save {discountPercentage}%
+                </motion.span>
+              )}
+            </>
+          )}
+        </div>
+        
+        {/* Tax info */}
+        <p className="text-sm text-gray-500">
+          Inclusive of all taxes. No hidden charges.
+        </p>
       </div>
 
-      {/* Short Description */}
-      <p className="text-lg text-slate-700">
+      {/* Rating and reviews - Added */}
+      {product.rating && (
+        <div className="flex items-center gap-2">
+          <div className="flex text-yellow-400">
+            {[...Array(5)].map((_, i) => (
+              <FiTag 
+                key={i}
+                className={`w-4 h-4 ${i < Math.floor(product.rating || 4.5) ? 'fill-yellow-400' : 'text-gray-600'}`}
+              />
+            ))}
+          </div>
+          <span className="text-gray-400 text-sm">
+            {product.rating.toFixed(1)} ({product.ratingCount || 42} reviews)
+          </span>
+        </div>
+      )}
+
+      {/* Short Description - Updated */}
+      <p className="text-lg text-gray-300 leading-relaxed">
         {product.shortDescription}
       </p>
 
-      {/* Customization Fields */}
+      {/* Customization Fields - Updated */}
       {product.isCustomizable && product.customizationFields && (
-        <div className="space-y-6 pt-6 border-t border-anthands-pink">
-          <h3 className="font-display text-xl font-semibold text-slate-900">
-            Personalize This Gift
-          </h3>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="space-y-6 pt-6 border-t border-yellow-400/20"
+        >
+          <div className="flex items-center gap-2">
+            <div className="w-1 h-4 bg-gradient-to-b from-yellow-400 to-yellow-300 rounded-full"></div>
+            <h3 className="font-display text-xl font-semibold text-yellow-300">
+              Personalize This Gift
+            </h3>
+          </div>
           
           {product.customizationFields.map((field) => (
             <div key={field.name} className="space-y-2">
-              <label className="block text-sm font-medium text-slate-900">
+              <label className="block text-sm font-medium text-gray-300">
                 {field.label}
                 {field.helperText && (
-                  <span className="ml-2 text-xs text-slate-500">
+                  <span className="ml-2 text-xs text-gray-500">
                     <FiInfo className="inline mr-1" />
                     {field.helperText}
                   </span>
@@ -125,7 +166,7 @@ const ProductInfo = ({ product }) => {
                   type="text"
                   value={customizationValues[field.name] || ''}
                   onChange={(e) => handleCustomizationChange(field.name, e.target.value)}
-                  className="w-full px-4 py-2 border border-anthands-pink rounded-lg focus:outline-none focus:ring-2 focus:ring-anthands-pink focus:border-transparent"
+                  className="w-full px-4 py-3 bg-gray-900/50 border border-yellow-400/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent text-white placeholder-gray-500 transition-all duration-200 hover:border-yellow-400/50"
                   placeholder={`Enter ${field.label.toLowerCase()}`}
                 />
               )}
@@ -135,28 +176,33 @@ const ProductInfo = ({ product }) => {
                   value={customizationValues[field.name] || ''}
                   onChange={(e) => handleCustomizationChange(field.name, e.target.value)}
                   rows={3}
-                  className="w-full px-4 py-2 border border-anthands-pink rounded-lg focus:outline-none focus:ring-2 focus:ring-anthands-pink focus:border-transparent"
+                  className="w-full px-4 py-3 bg-gray-900/50 border border-yellow-400/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent text-white placeholder-gray-500 transition-all duration-200 hover:border-yellow-400/50"
                   placeholder={`Write your ${field.label.toLowerCase()}`}
                 />
               )}
               
-{field.type === 'select' && (
-  <select
-    value={customizationValues[field.name] || ''}
-    onChange={(e) => handleCustomizationChange(field.name, e.target.value)}
-    className="w-full px-4 py-2 border border-anthands-pink rounded-lg focus:outline-none focus:ring-2 focus:ring-anthands-pink focus:border-transparent"
-  >
-    <option value="">Select {field.label.toLowerCase()}</option>
-    {field.options?.map((option) => (
-      <option key={option} value={option}>
-        {option}
-      </option>
-    ))}
-  </select>
-)}
+              {field.type === 'select' && (
+                <select
+                  value={customizationValues[field.name] || ''}
+                  onChange={(e) => handleCustomizationChange(field.name, e.target.value)}
+                  className="w-full px-4 py-3 bg-gray-900/50 border border-yellow-400/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent text-white transition-all duration-200 hover:border-yellow-400/50 appearance-none"
+                >
+                  <option value="" className="text-gray-500">
+                    Select {field.label.toLowerCase()}
+                  </option>
+                  {field.options?.map((option) => (
+                    <option key={option} value={option} className="text-white bg-gray-900">
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              )}
               
               {field.type === 'file' && (
-                <div className="border-2 border-dashed border-anthands-pink rounded-lg p-4 text-center">
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  className="border-2 border-dashed border-yellow-400/30 rounded-lg p-6 text-center bg-gray-900/30 hover:border-yellow-400/50 transition-all duration-300"
+                >
                   <input
                     type="file"
                     onChange={(e) => {
@@ -172,86 +218,134 @@ const ProductInfo = ({ product }) => {
                     htmlFor={`file-${field.name}`}
                     className="cursor-pointer block"
                   >
-                    <div className="text-anthands-rose mb-2">
-                      <svg className="w-8 h-8 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                      </svg>
+                    <div className="text-yellow-400 mb-3">
+                      <FiUpload className="w-8 h-8 mx-auto" />
                     </div>
-                    <span className="text-sm text-slate-700">
+                    <span className="text-sm text-gray-400">
                       {customizationValues[field.name] 
-                        ? `Selected: ${customizationValues[field.name]}`
-                        : 'Click to upload photo'}
+                        ? (
+                          <motion.span
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="inline-flex items-center gap-2 text-yellow-400"
+                          >
+                            <FiCheck />
+                            {customizationValues[field.name]}
+                          </motion.span>
+                        )
+                        : 'Click to upload your photo (Max 5MB)'}
                     </span>
+                    <p className="text-xs text-gray-500 mt-1">
+                      JPG, PNG formats • Recommended size: 1000x1000px
+                    </p>
                   </label>
-                </div>
+                </motion.div>
               )}
             </div>
           ))}
-        </div>
+        </motion.div>
       )}
 
-      {/* Quantity Selector */}
-      <div className="space-y-2">
-        <label className="block text-sm font-medium text-slate-900">
+      {/* Quantity Selector - Updated */}
+      <div className="space-y-3">
+        <label className="block text-sm font-medium text-gray-300">
           Quantity
         </label>
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center border border-anthands-pink rounded-lg">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center border border-yellow-400/30 rounded-lg bg-gray-900/50">
             <button
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
-              className="px-4 py-2 text-anthands-rose hover:bg-anthands-pink rounded-l-lg transition-colors"
+              className="px-4 py-2.5 text-yellow-400 hover:bg-yellow-400/10 rounded-l-lg transition-colors"
             >
               -
             </button>
-            <span className="px-4 py-2 min-w-[60px] text-center font-medium">
+            <span className="px-4 py-2.5 min-w-[60px] text-center font-medium text-white border-x border-yellow-400/20">
               {quantity}
             </span>
             <button
               onClick={() => setQuantity(quantity + 1)}
-              className="px-4 py-2 text-anthands-rose hover:bg-anthands-pink rounded-r-lg transition-colors"
+              className="px-4 py-2.5 text-yellow-400 hover:bg-yellow-400/10 rounded-r-lg transition-colors"
             >
               +
             </button>
           </div>
-          <span className="text-sm text-slate-600">
-            {product.isCustomizable ? 'Custom made for you' : 'Ready to ship'}
+          <span className="text-sm text-gray-400">
+            {product.isCustomizable ? '✨ Custom made for you' : '📦 Ready to ship'}
           </span>
         </div>
       </div>
 
-      {/* Action Buttons */}
-      <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-anthands-pink">
-        <Button
+      {/* Action Buttons - Updated */}
+      <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-yellow-400/20">
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={handleAddToCart}
-          variant="primary"
-          className="flex-1 py-4 text-lg"
+          className="flex-1 py-3.5 px-6 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black font-bold text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(250,204,21,0.3)] border-2 border-yellow-400/30 hover:border-yellow-400"
         >
           Add to Cart
-        </Button>
-        <Button
+        </motion.button>
+        
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={handleBuyNow}
-          variant="dark"
-          className="flex-1 py-4 text-lg"
+          className="flex-1 py-3.5 px-6 bg-gray-900 border-2 border-yellow-400/30 hover:border-yellow-400 text-yellow-400 hover:text-yellow-300 hover:bg-gray-800 font-bold text-lg rounded-lg transition-all duration-300 shadow-lg"
         >
           Buy Now
-        </Button>
+        </motion.button>
       </div>
 
-      {/* Product Details */}
-      <div className="space-y-4 pt-6 border-t border-anthands-pink">
+      {/* Product Details - Updated */}
+      <div className="space-y-3 pt-6 border-t border-yellow-400/20">
         <div className="flex items-center text-sm">
-          <FiCheck className="text-anthands-rose mr-2" />
-          <span className="text-slate-700">Free shipping on orders over ₹499</span>
+          <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center mr-3">
+            <FiCheck className="w-3 h-3 text-green-400" />
+          </div>
+          <span className="text-gray-300">Free shipping on orders over ₹499</span>
         </div>
         <div className="flex items-center text-sm">
-          <FiCheck className="text-anthands-rose mr-2" />
-          <span className="text-slate-700">Delivery in 3-7 business days</span>
+          <div className="w-5 h-5 rounded-full bg-yellow-500/20 flex items-center justify-center mr-3">
+            <FiTruck className="w-3 h-3 text-yellow-400" />
+          </div>
+          <span className="text-gray-300">Delivery in 3-7 business days</span>
         </div>
         <div className="flex items-center text-sm">
-          <FiCheck className="text-anthands-rose mr-2" />
-          <span className="text-slate-700">Secure payment options</span>
+          <div className="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center mr-3">
+            <FiShield className="w-3 h-3 text-blue-400" />
+          </div>
+          <span className="text-gray-300">Secure payment options</span>
+        </div>
+        <div className="flex items-center text-sm">
+          <div className="w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center mr-3">
+            <FiPackage className="w-3 h-3 text-purple-400" />
+          </div>
+          <span className="text-gray-300">Custom packaging included</span>
         </div>
       </div>
+
+      {/* Stock indicator - Added */}
+      {product.stock && product.stock < 10 && (
+        <div className="pt-4">
+          <div className="bg-gradient-to-r from-yellow-500/10 to-yellow-400/10 border border-yellow-400/20 rounded-lg p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-yellow-400">Low Stock Alert</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-gray-300 text-sm">
+                Only {product.stock} items left
+              </span>
+              <div className="flex-1 h-2 bg-gray-800 rounded-full overflow-hidden ml-4">
+                <div 
+                  className="h-full bg-gradient-to-r from-yellow-500 to-yellow-400 rounded-full"
+                  style={{ width: `${(product.stock / 10) * 100}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

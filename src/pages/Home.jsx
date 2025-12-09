@@ -1,24 +1,24 @@
-// src/pages/Home.jsx - Updated without getBestSellers import
+// src/pages/Home.jsx - Updated with dark theme
 import { motion } from 'framer-motion'
 import HeroSection from '../components/home/HeroSection'
 import CollectionsGrid from '../components/home/CollectionsGrid'
 import ProductCarousel from '../components/home/ProductCarousel'
 import InfoFAQ from '../components/home/InfoFAQ'
 import { getFeaturedProducts } from '../data/products'
-import { FiArrowRight, FiGift, FiStar, FiHeart, FiTruck, FiTrendingUp } from 'react-icons/fi'
+import { FiArrowRight, FiGift, FiStar, FiHeart, FiTruck, FiTrendingUp, FiShield } from 'react-icons/fi'
 
 const Home = () => {
   const featuredProducts = getFeaturedProducts()
   
-  // Create a simple best sellers list from featured products or just use featured products
-  const bestSellers = featuredProducts.slice(0, 6).map(product => ({
+  // Create trending products from featured products
+  const trendingProducts = featuredProducts.slice(0, 8).map(product => ({
     ...product,
-    isBestSeller: true
+    isTrending: true
   }))
 
   return (
-    <div className="overflow-hidden">
-      {/* Hero Section - Full width */}
+    <div className="overflow-hidden bg-black">
+      {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -42,7 +42,7 @@ const Home = () => {
       </section>
 
       {/* Featured Products */}
-      <section className="py-8 md:py-12 lg:py-16 bg-gradient-to-b from-white to-amber-50/20">
+      <section className="py-8 md:py-12 lg:py-16 bg-black border-y border-yellow-400/10">
         <div className="px-4 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -53,7 +53,7 @@ const Home = () => {
             <ProductCarousel 
               title="Featured Products" 
               subtitle="Handpicked personalized gifts with love and care"
-              products={featuredProducts} 
+              products={featuredProducts.slice(0, 6)} 
             />
           </motion.div>
         </div>
@@ -70,10 +70,10 @@ const Home = () => {
             className="max-w-7xl mx-auto"
           >
             <div className="text-center mb-8 md:mb-12">
-              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-3">
-                Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-orange-600 to-rose-600">AntHands</span>
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-black text-white mb-3">
+                Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500">AntHands</span>
               </h2>
-              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
                 We combine craftsmanship with love to create gifts that last a lifetime
               </p>
             </div>
@@ -84,25 +84,29 @@ const Home = () => {
                   icon: <FiGift className="w-8 h-8" />,
                   title: "Customizable",
                   description: "Every product can be personalized",
-                  color: "from-amber-500 to-orange-500"
+                  color: "from-yellow-500 to-yellow-600",
+                  bgColor: "bg-yellow-500/10"
                 },
                 {
                   icon: <FiHeart className="w-8 h-8" />,
                   title: "Handcrafted",
                   description: "Made with care and attention",
-                  color: "from-rose-500 to-pink-500"
+                  color: "from-yellow-400 to-yellow-500",
+                  bgColor: "bg-yellow-400/10"
                 },
                 {
                   icon: <FiStar className="w-8 h-8" />,
                   title: "Premium Quality",
                   description: "Using the best materials",
-                  color: "from-amber-600 to-orange-600"
+                  color: "from-yellow-600 to-yellow-700",
+                  bgColor: "bg-yellow-600/10"
                 },
                 {
                   icon: <FiTruck className="w-8 h-8" />,
                   title: "Fast Shipping",
                   description: "Delivered in 3-7 days",
-                  color: "from-orange-500 to-rose-500"
+                  color: "from-yellow-500 to-yellow-400",
+                  bgColor: "bg-yellow-500/10"
                 }
               ].map((feature, index) => (
                 <motion.div
@@ -111,18 +115,19 @@ const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="group bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-amber-200 hover:border-amber-300 shadow-lg hover:shadow-xl transition-all duration-300"
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="group bg-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-yellow-400/20 hover:border-yellow-400/60 shadow-lg hover:shadow-[0_0_25px_rgba(250,204,21,0.1)] transition-all duration-300"
                 >
-                  <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${feature.color} text-white mb-4`}>
+                  <div className={`inline-flex p-3 rounded-xl ${feature.bgColor} border border-yellow-400/30 text-yellow-400 mb-4 group-hover:border-yellow-400/50 group-hover:text-yellow-300 transition-colors`}>
                     {feature.icon}
                   </div>
-                  <h3 className="font-display text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="font-display text-xl font-bold text-yellow-300 mb-2 group-hover:text-yellow-400 transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-400">
                     {feature.description}
                   </p>
-                  <div className="mt-4 h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300" />
+                  <div className="mt-4 h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-yellow-500 to-yellow-400 transition-all duration-300 rounded-full" />
                 </motion.div>
               ))}
             </div>
@@ -130,8 +135,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Trending Products (Replaced Best Sellers) */}
-      <section className="py-8 md:py-12 lg:py-16 bg-gradient-to-b from-amber-50/30 to-white">
+      {/* Trending Products */}
+      <section className="py-8 md:py-12 lg:py-16 bg-black border-y border-yellow-400/10">
         <div className="px-4 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -142,7 +147,7 @@ const Home = () => {
             <ProductCarousel 
               title="Trending Now" 
               subtitle="Most popular personalized gifts this week"
-              products={bestSellers} 
+              products={trendingProducts} 
             />
           </motion.div>
         </div>
@@ -162,7 +167,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section - Full width */}
+      {/* CTA Section */}
       <motion.section
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -170,41 +175,64 @@ const Home = () => {
         className="relative overflow-hidden py-12 md:py-16 lg:py-20"
       >
         {/* Background with gradient and pattern */}
-        <div className="absolute inset-0 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 opacity-90" />
-        <div className="absolute inset-0 opacity-10" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.2'/%3E%3C/svg%3E")`,
-          backgroundSize: '60px 60px'
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black" />
+        <div className="absolute inset-0 bg-gradient-to-r from-yellow-900/20 via-yellow-800/10 to-yellow-900/20" />
+        
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: `linear-gradient(rgba(250, 204, 21, 0.1) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(250, 204, 21, 0.1) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
         }} />
         
         {/* Floating particles */}
         <div className="absolute inset-0">
-          {[...Array(3)].map((_, i) => (
+          {[...Array(5)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-2 h-2 bg-white/30 rounded-full animate-float"
+              className="absolute w-1 h-1 bg-yellow-400/50 rounded-full animate-float"
               style={{
                 left: `${10 + i * 20}%`,
                 top: `${20 + i * 15}%`,
-                animationDelay: `${i * 0.5}s`
+                animationDelay: `${i * 0.5}s`,
+                animationDuration: '8s'
               }}
             />
           ))}
         </div>
 
         <div className="relative px-4 md:px-8 text-center max-w-4xl mx-auto">
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 md:mb-6">
-            Ready to Create Something <span className="text-amber-200">Special?</span>
-          </h2>
-          <p className="text-white/90 text-lg md:text-xl mb-8 md:mb-10 max-w-2xl mx-auto">
-            Start personalizing your gifts today. Each creation tells a unique story filled with emotions and memories.
-          </p>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-display text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 md:mb-6"
+          >
+            Ready to Create Something <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500">Special?</span>
+          </motion.h2>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-gray-300 text-lg md:text-xl mb-8 md:mb-10 max-w-2xl mx-auto"
+          >
+            Start personalizing your gifts today. Each creation tells a unique story filled with emotions and memories.
+          </motion.p>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          >
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               href="/collections/wallet-cards"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 md:px-10 md:py-4 bg-white text-amber-600 hover:text-amber-700 font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-2xl text-base"
+              className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 md:px-10 md:py-4 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-[0_0_30px_rgba(250,204,21,0.4)] text-base border-2 border-yellow-400/30 hover:border-yellow-400"
             >
               <FiGift className="w-5 h-5" />
               Shop Wallet Cards
@@ -215,20 +243,55 @@ const Home = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               href="/collections/all"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 md:px-10 md:py-4 bg-transparent border-2 border-white/50 hover:border-white text-white hover:bg-white/10 font-bold rounded-full transition-all duration-300 backdrop-blur-sm"
+              className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 md:px-10 md:py-4 bg-transparent border-2 border-yellow-400/30 hover:border-yellow-400 text-yellow-400 hover:text-yellow-300 hover:bg-yellow-400/10 font-bold rounded-full transition-all duration-300 backdrop-blur-sm"
             >
               Explore All Collections
               <FiArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </motion.a>
-          </div>
+          </motion.div>
           
-          {/* Decorative element */}
-          <div className="mt-10">
-            <div className="h-px w-24 md:w-32 bg-gradient-to-r from-transparent via-white/50 to-transparent mx-auto" />
-            <p className="text-white/80 text-sm mt-4">
-              ✨ 500+ happy customers • ⭐ 4.9/5 rating • 🚀 Free shipping over ₹499
-            </p>
-          </div>
+          {/* Decorative element and stats */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="mt-10"
+          >
+            <div className="h-px w-24 md:w-32 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent mx-auto" />
+            
+            {/* Stats */}
+            <div className="flex flex-wrap justify-center gap-6 mt-6">
+              <div className="flex items-center gap-2 text-sm text-gray-400">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span>500+ happy customers</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-400">
+                <FiStar className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                <span>4.9/5 rating</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-400">
+                <FiTruck className="w-3 h-3 text-yellow-400" />
+                <span>Free shipping over ₹499</span>
+              </div>
+            </div>
+
+            {/* Trust indicators */}
+            <div className="flex flex-wrap justify-center gap-4 mt-4">
+              <div className="flex items-center gap-2 text-xs text-gray-500">
+                <FiShield className="w-3 h-3 text-yellow-400" />
+                <span>Secure Payments</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-gray-500">
+                <FiTrendingUp className="w-3 h-3 text-yellow-400" />
+                <span>Trending Now</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-gray-500">
+                <FiHeart className="w-3 h-3 text-yellow-400" />
+                <span>Made with Love</span>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </motion.section>
     </div>

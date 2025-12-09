@@ -1,8 +1,8 @@
-// src/components/layout/Footer.jsx - Updated with theme colors
+// src/components/layout/Footer.jsx - Updated with dark black/yellow theme
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiMail, FiInstagram, FiFacebook, FiTwitter, FiHeart, FiMapPin, FiPhone } from 'react-icons/fi'
-import { MdOutlineEmail, MdLocalShipping } from 'react-icons/md'
+import { FiMail, FiInstagram, FiFacebook, FiTwitter, FiHeart, FiMapPin, FiPhone, FiShield, FiClock } from 'react-icons/fi'
+import { MdOutlineEmail, MdLocalShipping, MdVerified } from 'react-icons/md'
 
 const Footer = () => {
   const [email, setEmail] = useState('')
@@ -18,83 +18,97 @@ const Footer = () => {
   }
 
   return (
-    <footer className="bg-gradient-to-b from-slate-900 to-gray-900 text-white mt-16 border-t border-amber-200/20">
+    <footer className="bg-black text-white mt-16 border-t-2 border-yellow-400/30">
       {/* Top decorative border */}
-      <div className="h-1 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500"></div>
+      <div className="h-1 bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-300"></div>
       
       <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 py-12">
-          {/* Brand Info - Enhanced */}
+          {/* Brand Info - Updated */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
-  <div className="relative">
-    <div className="relative w-10 h-10 rounded-2xl overflow-hidden bg-white border-2 border-amber-300 shadow-lg">
-      <img 
-        src="/logo.jpg" 
-        alt="AntHands Logo"
-        className="w-full h-full object-cover"
-        onError={(e) => {
-          // Fallback if logo doesn't load
-          e.target.style.display = 'none';
-          e.target.nextElementSibling.style.display = 'flex';
-        }}
-      />
-      {/* Fallback logo */}
-      <div className="w-full h-full bg-gradient-to-br from-amber-500 to-orange-500 hidden items-center justify-center">
-        <span className="text-lg font-black text-white">AH</span>
-      </div>
-      <div className="absolute -top-1 -right-1 w-4 h-4 bg-rose-500 rounded-full border-2 border-white flex items-center justify-center">
-        <FiHeart className="w-2 h-2 text-white" />
-      </div>
-    </div>
-  </div>
-  <div className="text-left">
-    <span className="font-display text-2xl font-black bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400 bg-clip-text text-transparent">
-      AntHands
-    </span>
-    <p className="text-sm text-slate-300 -mt-1">Work like an ant, deliver like a king</p>
-  </div>
-</div>
-            <p className="text-slate-300 text-sm mb-6 max-w-md">
+              <div className="relative">
+                <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-black border-2 border-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.3)]">
+                  <img 
+                    src="/logo.jpg" 
+                    alt="AntHands Logo"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextElementSibling.style.display = 'flex';
+                    }}
+                  />
+                  {/* Fallback logo with theme colors */}
+                  <div className="w-full h-full bg-gradient-to-br from-black to-gray-900 hidden items-center justify-center">
+                    <div className="text-center">
+                      <div className="text-yellow-400 font-black text-sm">AH</div>
+                      <div className="text-yellow-300 text-[8px] font-bold">HANDS</div>
+                    </div>
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full border-2 border-black flex items-center justify-center">
+                    <FiHeart className="w-1.5 h-1.5 text-black" />
+                  </div>
+                </div>
+              </div>
+              <div className="text-left">
+                <span className="font-display text-2xl font-black bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text text-transparent">
+                  AntHands
+                </span>
+                <p className="text-sm text-yellow-300/80 -mt-1 italic">Work like an ant, deliver like a king</p>
+              </div>
+            </div>
+            <p className="text-gray-300 text-sm mb-6 max-w-md">
               Transforming precious moments into custom gifts that create lasting memories. 
               From photo frames to personalized accessories, we bring your emotions to life.
             </p>
             
-            {/* Contact Info */}
+            {/* Contact Info - Updated */}
             <div className="space-y-2 mb-6">
-              <div className="flex items-center gap-2 text-slate-300 text-sm">
-                <FiMapPin className="text-amber-400" />
+              <div className="flex items-center gap-2 text-gray-300 text-sm bg-gray-900/50 p-3 rounded-lg border border-yellow-400/20">
+                <FiMapPin className="text-yellow-400" />
                 <span>Delivering happiness across India</span>
               </div>
-              <div className="flex items-center gap-2 text-slate-300 text-sm">
-                <FiPhone className="text-amber-400" />
+              <div className="flex items-center gap-2 text-gray-300 text-sm bg-gray-900/50 p-3 rounded-lg border border-yellow-400/20">
+                <FiPhone className="text-yellow-400" />
                 <span>+91 98765 43210</span>
               </div>
-              <div className="flex items-center gap-2 text-slate-300 text-sm">
-                <MdOutlineEmail className="text-amber-400" />
+              <div className="flex items-center gap-2 text-gray-300 text-sm bg-gray-900/50 p-3 rounded-lg border border-yellow-400/20">
+                <MdOutlineEmail className="text-yellow-400" />
                 <span>hello@anthands.in</span>
               </div>
-              <div className="flex items-center gap-2 text-slate-300 text-sm">
-                <MdLocalShipping className="text-amber-400" />
+              <div className="flex items-center gap-2 text-gray-300 text-sm bg-gray-900/50 p-3 rounded-lg border border-yellow-400/20">
+                <MdLocalShipping className="text-yellow-400" />
                 <span>3-7 Days Delivery • Free Shipping above ₹499</span>
               </div>
             </div>
 
-            {/* Social Links - Enhanced */}
+            {/* Social Links - Updated */}
             <div className="flex space-x-3">
               {[
-                { icon: <FiInstagram className="text-lg" />, label: 'Instagram', color: 'hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600' },
-                { icon: <FiFacebook className="text-lg" />, label: 'Facebook', color: 'hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-800' },
-                { icon: <FiTwitter className="text-lg" />, label: 'Twitter', color: 'hover:bg-gradient-to-r hover:from-blue-400 hover:to-cyan-400' },
+                { 
+                  icon: <FiInstagram className="text-lg" />, 
+                  label: 'Instagram', 
+                  color: 'hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 hover:border-purple-500' 
+                },
+                { 
+                  icon: <FiFacebook className="text-lg" />, 
+                  label: 'Facebook', 
+                  color: 'hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-800 hover:border-blue-500' 
+                },
+                { 
+                  icon: <FiTwitter className="text-lg" />, 
+                  label: 'Twitter', 
+                  color: 'hover:bg-gradient-to-r hover:from-sky-500 hover:to-cyan-400 hover:border-sky-500' 
+                },
               ].map((social) => (
                 <a
                   key={social.label}
                   href="#"
-                  className={`group p-3 rounded-xl bg-slate-800/50 backdrop-blur-sm border border-slate-700 text-slate-300 ${social.color} hover:text-white transition-all duration-300 relative`}
+                  className={`group p-3 rounded-lg bg-gray-900/80 backdrop-blur-sm border border-yellow-400/20 text-yellow-400 ${social.color} hover:text-white hover:shadow-[0_0_15px_rgba(250,204,21,0.3)] transition-all duration-300 relative`}
                   aria-label={social.label}
                 >
                   {social.icon}
-                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-yellow-400 text-xs px-2 py-1 rounded border border-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                     {social.label}
                   </div>
                 </a>
@@ -102,38 +116,39 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links - Enhanced */}
+          {/* Quick Links - Updated */}
           <div>
-            <h3 className="font-display text-lg font-semibold mb-4 text-amber-300 flex items-center gap-2">
-              <div className="w-1 h-4 bg-gradient-to-b from-amber-400 to-orange-400 rounded-full"></div>
+            <h3 className="font-display text-lg font-semibold mb-4 text-yellow-400 flex items-center gap-2">
+              <div className="w-1 h-4 bg-gradient-to-b from-yellow-400 to-yellow-300 rounded-full"></div>
               Quick Links
             </h3>
             <ul className="space-y-2.5">
               {[
-                { path: '/about', label: 'About Us' },
-                { path: '/contact', label: 'Contact Us' },
-                { path: '/privacy-policy', label: 'Privacy Policy' },
-                { path: '/terms-conditions', label: 'Terms & Conditions' },
-                { path: '/cancellation-refund', label: 'Cancellation & Refund' },
-                { path: '/shipping-policy', label: 'Shipping Policy' },
+                { path: '/about', label: 'About Us', emoji: '👥' },
+                { path: '/contact', label: 'Contact Us', emoji: '📞' },
+                { path: '/privacy-policy', label: 'Privacy Policy', emoji: '🔒' },
+                { path: '/terms-conditions', label: 'Terms & Conditions', emoji: '📝' },
+                { path: '/cancellation-refund', label: 'Cancellation & Refund', emoji: '↩️' },
+                { path: '/shipping-policy', label: 'Shipping Policy', emoji: '🚚' },
               ].map((link) => (
                 <li key={link.path}>
                   <Link 
                     to={link.path} 
-                    className="flex items-center gap-2 text-slate-300 hover:text-amber-300 transition-all duration-200 group text-sm"
+                    className="flex items-center gap-2 text-gray-300 hover:text-yellow-400 transition-all duration-200 group text-sm hover:translate-x-1"
                   >
-                    <div className="w-1 h-1 bg-amber-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <span className="text-base">{link.emoji}</span>
                     {link.label}
+                    <div className="w-0 h-px bg-gradient-to-r from-yellow-400 to-yellow-300 group-hover:w-16 transition-all duration-300 ml-2"></div>
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Collections - Enhanced */}
+          {/* Collections - Updated */}
           <div>
-            <h3 className="font-display text-lg font-semibold mb-4 text-amber-300 flex items-center gap-2">
-              <div className="w-1 h-4 bg-gradient-to-b from-amber-400 to-orange-400 rounded-full"></div>
+            <h3 className="font-display text-lg font-semibold mb-4 text-yellow-400 flex items-center gap-2">
+              <div className="w-1 h-4 bg-gradient-to-b from-yellow-400 to-yellow-300 rounded-full"></div>
               Shop Collections
             </h3>
             <ul className="space-y-2.5">
@@ -150,42 +165,43 @@ const Footer = () => {
                 <li key={collection.path}>
                   <Link 
                     to={collection.path} 
-                    className="flex items-center gap-2 text-slate-300 hover:text-amber-300 transition-all duration-200 group text-sm"
+                    className="flex items-center gap-2 text-gray-300 hover:text-yellow-400 transition-all duration-200 group text-sm hover:translate-x-1"
                   >
                     <span className="text-base">{collection.emoji}</span>
                     {collection.label}
+                    <div className="w-0 h-px bg-gradient-to-r from-yellow-400 to-yellow-300 group-hover:w-16 transition-all duration-300 ml-2"></div>
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Newsletter - Enhanced */}
+          {/* Newsletter - Updated */}
           <div>
-            <h3 className="font-display text-lg font-semibold mb-4 text-amber-300 flex items-center gap-2">
-              <div className="w-1 h-4 bg-gradient-to-b from-amber-400 to-orange-400 rounded-full"></div>
+            <h3 className="font-display text-lg font-semibold mb-4 text-yellow-400 flex items-center gap-2">
+              <div className="w-1 h-4 bg-gradient-to-b from-yellow-400 to-yellow-300 rounded-full"></div>
               Stay Updated
             </h3>
-            <p className="text-slate-300 text-sm mb-4">
+            <p className="text-gray-300 text-sm mb-4">
               Subscribe to get special offers, free giveaways, and exclusive new product launches.
             </p>
             <form onSubmit={handleSubscribe} className="space-y-3">
               <div className="relative">
                 <div className="absolute left-4 top-3.5">
-                  <FiMail className="text-amber-400" />
+                  <FiMail className="text-yellow-400" />
                 </div>
                 <input
                   type="email"
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl bg-slate-800/50 backdrop-blur-sm border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm shadow-lg"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-900/80 backdrop-blur-sm border border-yellow-400/30 text-white placeholder-yellow-400/50 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent text-sm shadow-lg"
                   required
                 />
               </div>
               <button
                 type="submit"
-                className="w-full group relative bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-3 rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
+                className="w-full group relative bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black font-bold py-3 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-[0_0_20px_rgba(250,204,21,0.4)]"
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   Subscribe Now
@@ -193,49 +209,52 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-rose-600 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>
             </form>
             
-            {/* Trust Badges */}
-            <div className="mt-6 pt-6 border-t border-slate-800">
+            {/* Trust Badges - Updated */}
+            <div className="mt-6 pt-6 border-t border-yellow-400/20">
               <div className="grid grid-cols-2 gap-3">
-                <div className="text-center p-2 bg-slate-800/30 rounded-lg">
-                  <div className="text-xs text-slate-300">Secure</div>
-                  <div className="text-xs text-amber-400 font-bold">Payment</div>
+                <div className="text-center p-3 bg-gray-900/50 rounded-lg border border-yellow-400/20 hover:border-yellow-400 transition-colors">
+                  <FiShield className="inline-block text-yellow-400 mb-1" />
+                  <div className="text-xs text-gray-300">Secure</div>
+                  <div className="text-xs text-yellow-400 font-bold">Payment</div>
                 </div>
-                <div className="text-center p-2 bg-slate-800/30 rounded-lg">
-                  <div className="text-xs text-slate-300">24/7</div>
-                  <div className="text-xs text-amber-400 font-bold">Support</div>
+                <div className="text-center p-3 bg-gray-900/50 rounded-lg border border-yellow-400/20 hover:border-yellow-400 transition-colors">
+                  <FiClock className="inline-block text-yellow-400 mb-1" />
+                  <div className="text-xs text-gray-300">24/7</div>
+                  <div className="text-xs text-yellow-400 font-bold">Support</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar - Enhanced */}
-        <div className="border-t border-slate-800/50 py-6">
+        {/* Bottom Bar - Updated */}
+        <div className="border-t border-yellow-400/20 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-400 text-sm">
-              © {currentYear} <span className="text-amber-400 font-semibold">AntHands</span>. All rights reserved.
+            <p className="text-gray-400 text-sm">
+              © {currentYear} <span className="text-yellow-400 font-semibold">AntHands</span>. All rights reserved.
             </p>
             
             <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2 text-slate-400 text-sm">
+              <div className="flex items-center gap-2 text-gray-400 text-sm bg-gray-900/50 px-3 py-1.5 rounded-full border border-yellow-400/20">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <span>100% Secure Payments</span>
               </div>
               
-              <div className="hidden md:block h-4 w-px bg-slate-700"></div>
+              <div className="hidden md:block h-4 w-px bg-yellow-400/30"></div>
               
-              <div className="text-slate-500 text-xs text-center md:text-left">
-                Made with <FiHeart className="inline w-3 h-3 text-rose-500 animate-pulse" /> in India
+              <div className="text-gray-400 text-xs text-center md:text-left flex items-center gap-1">
+                Made with <FiHeart className="inline w-3 h-3 text-yellow-400 animate-pulse" /> in India
               </div>
             </div>
           </div>
           
           <div className="mt-4 text-center">
-            <p className="text-slate-500 text-xs">
+            <p className="text-gray-500 text-xs flex items-center justify-center gap-1">
+              <MdVerified className="text-yellow-400" />
               All images are for representation only. Actual product may vary slightly in color & design.
             </p>
           </div>
