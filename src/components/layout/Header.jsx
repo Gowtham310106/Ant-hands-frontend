@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { CartContext } from '../../context/CartContext'
 import OffersMarquee from './OffersMarquee'
 import { FiSearch, FiShoppingCart, FiMenu, FiX, FiHeart, FiUser } from 'react-icons/fi'
-import { MdStars, MdOutlineWorkspacePremium } from 'react-icons/md'
+import { MdStars } from 'react-icons/md'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -114,7 +114,7 @@ const Header = () => {
 
             {/* Right side icons - Updated for dark theme */}
             <div className="flex items-center space-x-4">
-              {/* User Account */}
+              {/* User Account - Hidden on mobile, shown on md+ */}
               <button className="hidden md:block p-2 rounded-lg hover:bg-gray-900 transition-colors group">
                 <FiUser className="text-xl text-yellow-400 group-hover:text-yellow-300 transition-colors" />
               </button>
@@ -138,19 +138,12 @@ const Header = () => {
                 </div>
               </form>
 
-              {/* Wishlist */}
+              {/* Wishlist - Hidden on mobile, shown on md+ */}
               <button className="hidden md:block p-2 rounded-lg hover:bg-gray-900 transition-colors group relative">
                 <FiHeart className="text-xl text-yellow-400 group-hover:text-yellow-300 transition-colors" />
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
                   3
                 </span>
-              </button>
-
-              {/* Premium */}
-              <button className="hidden lg:flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-yellow-500/20 to-yellow-400/10 border border-yellow-400/30 hover:border-yellow-400 transition-all group">
-                <MdOutlineWorkspacePremium className="text-yellow-400" />
-                <span className="text-yellow-300 font-semibold text-sm">Premium</span>
-                <span className="text-yellow-500/70 text-xs group-hover:text-yellow-400">+</span>
               </button>
 
               {/* Cart - Updated for dark theme */}
@@ -183,17 +176,17 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Mobile Menu - Updated for dark theme */}
+          {/* Mobile Menu - Improved for better responsiveness */}
           <AnimatePresence>
             {isMenuOpen && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="lg:hidden border-t border-yellow-400/20 mt-2 bg-gray-900 rounded-xl shadow-2xl my-2 border border-yellow-400/30"
+                className="lg:hidden border-t border-yellow-400/20 mt-2 bg-gray-900 rounded-xl shadow-2xl my-2 border border-yellow-400/30 max-h-[85vh] overflow-y-auto"
               >
                 <div className="py-6 px-4">
-                  {/* Mobile Search */}
+                  {/* Mobile Search - Always visible in mobile menu */}
                   <form onSubmit={handleSearch} className="mb-6">
                     <div className="relative">
                       <input
@@ -204,52 +197,75 @@ const Header = () => {
                         className="w-full pl-12 pr-4 py-3 rounded-full border border-yellow-400/50 bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent text-sm text-white placeholder-yellow-300/60 shadow-inner"
                       />
                       <FiSearch className="absolute left-4 top-3.5 text-yellow-400" />
+                      <button type="submit" className="absolute right-4 top-3.5 text-sm font-semibold text-yellow-400 hover:text-yellow-300">
+                        Search
+                      </button>
                     </div>
                   </form>
 
-                  {/* Mobile Nav Items */}
-                  <div className="grid grid-cols-1 gap-2">
+                  {/* Mobile Nav Items - Better spacing for touch */}
+                  <div className="grid grid-cols-1 gap-1 mb-4">
                     {navItems.map((item) => (
                       <Link
                         key={item.name}
                         to={item.path}
                         onClick={() => setIsMenuOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3.5 text-gray-300 hover:text-yellow-400 hover:bg-gray-800 rounded-lg transition-all duration-200 font-semibold border-l-2 border-transparent hover:border-yellow-400"
+                        className="flex items-center gap-3 px-4 py-3.5 text-gray-300 hover:text-yellow-400 hover:bg-gray-800 rounded-lg transition-all duration-200 font-medium text-sm sm:text-base active:bg-gray-700"
                       >
-                        <span className="text-xl">{item.icon}</span>
-                        <span>{item.name}</span>
+                        <span className="text-lg sm:text-xl flex-shrink-0">{item.icon}</span>
+                        <span className="truncate">{item.name}</span>
                       </Link>
                     ))}
                   </div>
 
-                  {/* Mobile CTA */}
-                  <div className="mt-6 pt-6 border-t border-yellow-400/20">
-                    <div className="grid grid-cols-2 gap-4">
-                      <button className="flex items-center justify-center gap-2 text-sm text-yellow-400 hover:text-yellow-300 bg-gray-800 py-2.5 rounded-lg border border-yellow-400/30 hover:border-yellow-400 transition-all">
+                  {/* Mobile Quick Actions - Improved layout */}
+                  <div className="mt-4 pt-4 border-t border-yellow-400/20">
+                    <div className="grid grid-cols-2 gap-3 mb-4">
+                      <button 
+                        onClick={() => setIsMenuOpen(false)}
+                        className="flex items-center justify-center gap-2 text-sm text-yellow-400 hover:text-yellow-300 bg-gray-800 py-3 rounded-lg border border-yellow-400/30 hover:border-yellow-400 transition-all active:scale-95"
+                      >
                         <FiUser className="text-lg" />
-                        <span>Account</span>
+                        <span className="hidden xs:inline">Account</span>
                       </button>
-                      <button className="flex items-center justify-center gap-2 text-sm text-yellow-400 hover:text-yellow-300 bg-gray-800 py-2.5 rounded-lg border border-yellow-400/30 hover:border-yellow-400 transition-all">
+                      <button 
+                        onClick={() => setIsMenuOpen(false)}
+                        className="flex items-center justify-center gap-2 text-sm text-yellow-400 hover:text-yellow-300 bg-gray-800 py-3 rounded-lg border border-yellow-400/30 hover:border-yellow-400 transition-all active:scale-95"
+                      >
                         <FiHeart className="text-lg" />
-                        <span>Wishlist</span>
+                        <span className="hidden xs:inline">Wishlist</span>
                         <span className="bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                           3
                         </span>
                       </button>
                     </div>
+                    
+                    {/* Cart Button in Mobile Menu */}
                     <Link 
                       to="/cart" 
                       onClick={() => setIsMenuOpen(false)}
-                      className="mt-4 flex items-center justify-center gap-2 text-sm text-black font-bold bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 py-3 rounded-lg transition-all shadow-lg"
+                      className="flex items-center justify-between text-sm text-black font-bold bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 py-3 px-6 rounded-lg transition-all shadow-lg active:scale-95"
                     >
-                      <FiShoppingCart className="text-lg" />
-                      <span>View Cart</span>
+                      <div className="flex items-center gap-2">
+                        <FiShoppingCart className="text-lg" />
+                        <span>View Cart</span>
+                      </div>
                       {cartCount > 0 && (
                         <span className="bg-black text-yellow-400 text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border border-yellow-400">
                           {cartCount}
                         </span>
                       )}
                     </Link>
+                  </div>
+
+                  {/* Mobile Contact Info */}
+                  <div className="mt-6 pt-4 border-t border-yellow-400/20 text-center">
+                    <p className="text-yellow-300/70 text-xs mb-2">Need help? We're here for you!</p>
+                    <div className="flex flex-col sm:flex-row justify-center items-center gap-2 text-yellow-400 text-sm">
+                      <span>📞 +1 234 567 8900</span>
+                      <span className="hidden sm:inline">•</span>
+                      <span>✉️ support@anthands.com</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>

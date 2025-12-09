@@ -92,56 +92,52 @@ const CompactOffersMarquee = () => {
   const canGoBack = location.key !== 'default'
 
   return (
-    <div className="bg-black border-b-2 border-yellow-400/30 py-3 shadow-[0_4px_6px_rgba(0,0,0,0.7)]">
+    <div className="bg-black border-b border-yellow-400/30 py-2 shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
       <div className="max-w-7xl mx-auto px-3 sm:px-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-center">
           {/* Back Button - Updated */}
           {canGoBack && (
             <button
               onClick={handleBackNavigation}
-              className="p-1.5 sm:p-2 rounded-lg text-yellow-400 hover:text-yellow-300 hover:bg-gray-900 transition-colors duration-200 flex-shrink-0 mr-2 border border-yellow-400/20 hover:border-yellow-400"
+              className="p-1.5 rounded-lg text-yellow-400 hover:text-yellow-300 hover:bg-gray-900 transition-colors duration-200 flex-shrink-0 mr-2 border border-yellow-400/20 hover:border-yellow-400"
               aria-label="Go back"
             >
-              <FiArrowLeft className="text-base sm:text-lg" />
+              <FiArrowLeft className="text-base" />
             </button>
           )}
 
           {/* Current Offer - Updated */}
-          <div className="flex-1 flex items-center justify-center px-1 sm:px-2">
+          <div className="flex-1 flex items-center justify-center max-w-2xl">
             <motion.div
               key={currentIndex}
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3 }}
-              className="flex items-center gap-2 sm:gap-3"
+              className="flex items-center gap-1"
             >
               {/* Previous Offer Button - Updated */}
               <button
                 onClick={prevOffer}
-                className="p-1.5 rounded-lg text-yellow-400 hover:text-yellow-300 hover:bg-gray-900 transition-colors duration-200 flex-shrink-0 border border-yellow-400/20 hover:border-yellow-400"
+                className="p-1 rounded-lg text-yellow-400 hover:text-yellow-300 hover:bg-gray-900 transition-colors duration-200 flex-shrink-0 border border-yellow-400/20 hover:border-yellow-400"
                 aria-label="Previous offer"
               >
-                <FiChevronLeft className="text-base" />
+                <FiChevronLeft className="text-sm" />
               </button>
 
               {/* Offer Content - Updated */}
               <button
                 onClick={() => handleOfferClick(offers[currentIndex])}
-                className="group flex items-center gap-2 sm:gap-3 min-w-0 bg-gray-900/50 backdrop-blur-sm border border-yellow-400/30 hover:border-yellow-400 rounded-lg p-2 transition-all duration-200 hover:shadow-[0_0_15px_rgba(250,204,21,0.2)]"
+                className="group flex items-center gap-2 min-w-0 bg-gray-900/50 backdrop-blur-sm border border-yellow-400/30 hover:border-yellow-400 rounded-lg px-3 py-1.5 transition-all duration-200 hover:shadow-[0_0_10px_rgba(250,204,21,0.15)]"
               >
                 {/* Offer Icon - Updated */}
-                <div className={`p-2 rounded-lg ${offers[currentIndex].color} ${offers[currentIndex].borderColor} border text-white shadow-lg flex-shrink-0`}>
+                <div className={`p-1 rounded-md ${offers[currentIndex].color} ${offers[currentIndex].borderColor} border text-white shadow-md flex-shrink-0`}>
                   {offers[currentIndex].icon}
                 </div>
                 
                 {/* Offer Text - Updated */}
                 <div className="text-left min-w-0">
-                  <span className="text-xs sm:text-sm font-semibold text-yellow-300 group-hover:text-yellow-400 transition-colors block truncate">
+                  <span className="text-xs font-semibold text-yellow-300 group-hover:text-yellow-400 transition-colors block truncate">
                     {offers[currentIndex].text}
-                  </span>
-                  {/* Small indicator - Updated */}
-                  <span className="text-xs text-yellow-400/70 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block">
-                    Click to explore →
                   </span>
                 </div>
               </button>
@@ -149,40 +145,12 @@ const CompactOffersMarquee = () => {
               {/* Next Offer Button - Updated */}
               <button
                 onClick={nextOffer}
-                className="p-1.5 rounded-lg text-yellow-400 hover:text-yellow-300 hover:bg-gray-900 transition-colors duration-200 flex-shrink-0 border border-yellow-400/20 hover:border-yellow-400"
+                className="p-1 rounded-lg text-yellow-400 hover:text-yellow-300 hover:bg-gray-900 transition-colors duration-200 flex-shrink-0 border border-yellow-400/20 hover:border-yellow-400"
                 aria-label="Next offer"
               >
-                <FiChevronRight className="text-base" />
+                <FiChevronRight className="text-sm" />
               </button>
             </motion.div>
-          </div>
-
-          {/* Offer Counter - Updated */}
-          <div className="flex-shrink-0 ml-2">
-            <div className="text-xs font-medium px-2 py-1 rounded-full bg-gray-900 border border-yellow-400/30 text-yellow-400">
-              {currentIndex + 1}/{offers.length}
-            </div>
-          </div>
-        </div>
-
-        {/* Progress Indicator - Updated */}
-        <div className="mt-2 flex justify-center">
-          <div className="flex gap-1">
-            {offers.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className="transition-all duration-300"
-              >
-                <div 
-                  className={`h-0.5 w-6 rounded-full transition-all duration-300 ${
-                    index === currentIndex 
-                      ? 'bg-gradient-to-r from-yellow-400 to-yellow-300' 
-                      : 'bg-gray-700 hover:bg-gray-600'
-                  }`}
-                />
-              </button>
-            ))}
           </div>
         </div>
       </div>
