@@ -10,8 +10,9 @@ import About from '../pages/About'
 import Contact from '../pages/Contact'
 import PrivacyPolicy from '../pages/PrivacyPolicy'
 import TermsConditions from '../pages/TermsConditions'
+import WorkshopPage from '../pages/WorkshopPage'
 import CancellationRefund from '../pages/CancellationRefund'
-//import WorkshopPage from '../pages/WorkshopPage'
+
 
 const AppRoutes = () => {
   return (
@@ -27,7 +28,7 @@ const AppRoutes = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-conditions" element={<TermsConditions />} />
         <Route path="/cancellation-refund" element={<CancellationRefund />} />
-        
+        <Route path="/workshop" element={<WorkshopPage />} />
        
       </Route>
     </Routes>
