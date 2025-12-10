@@ -27,7 +27,7 @@ const AppRoutes = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-conditions" element={<TermsConditions />} />
         <Route path="/cancellation-refund" element={<CancellationRefund />} />
-        {/* Corrected route path - use lowercase 'workshop' */}
+        
         <Route path="/workshop" element={<WorkshopPage />} />
       </Route>
     </Routes>
