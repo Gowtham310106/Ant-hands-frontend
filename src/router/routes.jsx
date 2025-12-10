@@ -11,6 +11,7 @@ import Contact from '../pages/Contact'
 import PrivacyPolicy from '../pages/PrivacyPolicy'
 import TermsConditions from '../pages/TermsConditions'
 import CancellationRefund from '../pages/CancellationRefund'
+import WorkshopPage from '../pages/WorkshopPage'
 
 const AppRoutes = () => {
   return (
@@ -26,6 +27,8 @@ const AppRoutes = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-conditions" element={<TermsConditions />} />
         <Route path="/cancellation-refund" element={<CancellationRefund />} />
+        {/* Corrected route path - use lowercase 'workshop' */}
+        <Route path="/workshop" element={<WorkshopPage />} />
       </Route>
     </Routes>
   )
